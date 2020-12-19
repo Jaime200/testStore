@@ -1,44 +1,46 @@
-import { useState } from 'react';
-import initialState from '../initialState';
+import  { useState } from 'react'
+import initialState from '../initialState'
 
-const useInitialState = () => {
-  const [state, setState] = useState(initialState);
+const useInitialState = ()=>{
+    const [ state, setState ] = useState(initialState);
 
-  const addToCart = payload => {
-    setState({
-      ...state,
-      cart: [...state.cart, payload],
-    });
-  }
+    // Estas funciones son como un reducer
+    const addToCart = payload =>{
+        setState({
+            ...state,
+            cart:[ ...state.cart, payload]
+        })
+    }
 
-  const removeFromCart = payload => {
-    setState({
-      ...state,
-      cart: state.cart.filter(items => items.id !== payload.id),
-    });
-  };
 
-  const addToBuyer = payload => {
-    setState({
-      ...state,
-      buyer: [...state.buyer, payload]
-    })
-  }
+    const addNewOrder = payload =>{
+        setState({
+            ...state,
+            orders: [state.orders, payload]
+        })
+    }
 
-  const addNewOrder = payload => {
-    setState({
-      ...state,
-      orders: [...state.orders, payload]
-    })
-  }
+    const removeFromCart = payload => {
+        setState({
+            ...state,
+            cart : state.cart.filter(f => f.id !== payload.id)
+        })
+    }
 
-  return {
-    addToCart,
-    removeFromCart,
-    addToBuyer,
-    addNewOrder,
-    state,
-  };
+    const addToBuyer = payload => {
+        setState({
+         ...state,
+         buyer : [ ...state.buyer , payload]   
+        })
+    }
+
+    return {
+        addNewOrder,
+        addToCart,
+        removeFromCart,
+        addToBuyer,
+        state
+    }
 };
 
 export default useInitialState;
